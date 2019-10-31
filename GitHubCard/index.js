@@ -3,6 +3,15 @@
            https://api.github.com/users/<your name>
 */
 
+axios
+.get('https://api.github.com/users/Code4Blessings')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.log('Github user not found');
+  })
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +54,23 @@ const followersArray = [];
 </div>
 
 */
+
+function GithubCard(props) {
+  //Elements
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const 
+
+  //Classes
+
+
+  //Text Content
+
+
+  //Component Structure
+
+
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
