@@ -90,7 +90,7 @@ function GithubCard(props) {
   const username = document.createElement('p')
   const location = document.createElement('p')
   const profile = document.createElement('p')
-  const gitAddress = document.createElement('a')
+  const gitAddress = document.createElement('p')
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
@@ -105,12 +105,12 @@ function GithubCard(props) {
   nameOfUser.textContent = props.name;
   username.textContent = props.login;
   location.textContent = props.location;
-  gitAddress.href = props.html_url
+  gitAddress.textContent = props.html_url
   profile.textContent = 'Profile:'
   followers.textContent = `Followers: ${props.followers}`
   following.textContent = `Following: ${props.following}`
   bio.textContent = `Bio: ${props.bio}`
-
+  
   //Component Structure
   card.appendChild(image);
   card.appendChild(cardInfo);
@@ -122,7 +122,7 @@ function GithubCard(props) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-
+  
   return card;
 }
 
