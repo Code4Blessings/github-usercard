@@ -2,6 +2,41 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards');
+
+axios
+.get('https://api.github.com/users/Code4Blessings')
+  .then(response => {
+    console.log(response.data);
+    const newGithubCard = GithubCard(response.data);
+    cards.appendChild(newGithubCard);
+
+  })
+  .catch(error => {
+    console.log('Github user not found');
+  })
+
+axios.get('https://api.github.com/users/Code4Blessings/followers')
+  .then(response => {
+    console.log(response);
+    const followersArray = response.data.map(user => {
+      const gitUser = user.login;
+      axios
+        .get(`https://api.github.com/users/${gitUser}`)
+        .then(myFollowers => {
+          const newData = myFollowers.data
+          console.log(response);
+          const newGithubCard2 = GithubCard(newData);
+          cards.appendChild(newGithubCard2);
+        })
+    });
+
+  })
+
+  .catch((err) => {
+    console.log("Error, user not found");
+  })
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -45,6 +80,51 @@ const followersArray = [];
 </div>
 
 */
+
+function GithubCard(props) {
+  //Elements
+  const card = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const nameOfUser = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const gitAddress = document.createElement('p')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+  
+  //Classes
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  nameOfUser.classList.add('name');
+  
+  //Text Content
+  image.src = props.avatar_url;
+  nameOfUser.textContent = props.name;
+  username.textContent = props.login;
+  location.textContent = props.location;
+  gitAddress.textContent = props.html_url
+  profile.textContent = 'Profile:'
+  followers.textContent = `Followers: ${props.followers}`
+  following.textContent = `Following: ${props.following}`
+  bio.textContent = `Bio: ${props.bio}`
+  
+  //Component Structure
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(nameOfUser);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(gitAddress);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
+  return card;
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
